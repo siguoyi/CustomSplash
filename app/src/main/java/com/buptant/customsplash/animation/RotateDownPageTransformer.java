@@ -17,8 +17,6 @@ public class  RotateDownPageTransformer implements ViewPager.PageTransformer
     public void transformPage(View view, float position)
     {
 
-        Log.e("TAG", view + " , " + position + "");
-
         if (position < -1)
         { // [-Infinity,-1)
             // This page is way off-screen to the left.
