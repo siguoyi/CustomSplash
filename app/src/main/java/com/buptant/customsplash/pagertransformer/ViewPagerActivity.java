@@ -18,9 +18,6 @@ import com.buptant.customsplash.animation.ZoomOutPageTransformer;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * ViewPager 引导
  */
@@ -31,14 +28,10 @@ public class ViewPagerActivity extends FragmentActivity {
     private static final int TAB_2 = 1;
     private static final int TAB_3 = 2;
     private static final int TAB_4 = 3;
-    @BindView(R.id.iv_select1)
-    ImageView ivSelect1;
-    @BindView(R.id.iv_select2)
-    ImageView ivSelect2;
-    @BindView(R.id.iv_select3)
-    ImageView ivSelect3;
-    @BindView(R.id.iv_select4)
-    ImageView ivSelect4;
+    private ImageView ivSelect1;
+    private ImageView ivSelect2;
+    private ImageView ivSelect3;
+    private ImageView ivSelect4;
 
     private ViewPager mVPActivity;
     private Fragment1 mFragment1;
@@ -62,9 +55,7 @@ public class ViewPagerActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_viewpager);
-        ButterKnife.bind(this);
         initImgId();
-        initTransformType();
         initView();
         initFragment();
     }
@@ -84,11 +75,11 @@ public class ViewPagerActivity extends FragmentActivity {
     }
 
     private void initView() {
+        ivSelect1 = (ImageView) findViewById(R.id.iv_select1);
+        ivSelect2 = (ImageView) findViewById(R.id.iv_select2);
+        ivSelect3 = (ImageView) findViewById(R.id.iv_select3);
+        ivSelect4 = (ImageView) findViewById(R.id.iv_select4);
         ivSelect1.setImageResource(R.drawable.select_selected);
-    }
-
-    private void initTransformType() {
-        transformType = SplashConfiguration.ROATTE_TRANSFORM;
     }
 
     private void initFragment() {

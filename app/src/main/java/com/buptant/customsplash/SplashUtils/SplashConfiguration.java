@@ -1,8 +1,6 @@
 package com.buptant.customsplash.SplashUtils;
 
 
-import android.content.Context;
-
 import com.buptant.customsplash.pagertransformer.Fragment4;
 import com.buptant.customsplash.pagertransformer.ViewPagerActivity;
 

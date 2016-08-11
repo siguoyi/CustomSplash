@@ -1,6 +1,5 @@
 package com.buptant.customsplash.pagertransformer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.buptant.customsplash.CustomSplashActivity;
 import com.buptant.customsplash.R;
 
 public class Fragment4 extends Fragment {
@@ -43,10 +42,12 @@ public class Fragment4 extends Fragment {
 	}
 
 	private void StartMainActivity(){
-		if(clazz == null){
-			clazz = CustomSplashActivity.class;
+		if(clazz != null){
+			Intent intent = new Intent(getActivity(), clazz);
+			startActivity(intent);
+			getActivity().finish();
+		}else {
+			Toast.makeText(getActivity(), "无加载的Activity！", Toast.LENGTH_SHORT).show();
 		}
-		Intent intent = new Intent(getActivity(), clazz);
-		startActivity(intent);
 	}
 }
