@@ -18,8 +18,7 @@ public class Fragment4 extends Fragment {
 
 	private TextView textView;
 	private RelativeLayout relativeLayout;
-	public static Context context;
-	private Class clazz;
+	public static Class clazz;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,9 +43,7 @@ public class Fragment4 extends Fragment {
 	}
 
 	private void StartMainActivity(){
-		if(context != null){
-			clazz = context.getClass();
-		}else {
+		if(clazz == null){
 			clazz = CustomSplashActivity.class;
 		}
 		Intent intent = new Intent(getActivity(), clazz);
