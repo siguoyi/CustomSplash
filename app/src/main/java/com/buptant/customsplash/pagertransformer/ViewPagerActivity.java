@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Window;
+import android.widget.ImageView;
 
 import com.buptant.customsplash.R;
 import com.buptant.customsplash.SplashUtils.SplashConfiguration;
@@ -30,25 +31,20 @@ public class ViewPagerActivity extends FragmentActivity {
 	private List<Fragment> mListFragment = new ArrayList<Fragment>();
 	private PagerAdapter mPgAdapter;
 
-	private SplashConfiguration splashConfiguration;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_viewpager);
-
-		splashConfiguration = new SplashConfiguration();
-
-		initView();
+		initFragment();
 		initTransformType();
 	}
 
 	private void initTransformType(){
-		splashConfiguration.setTransformType(SplashConfiguration.ROATTE_TRANSFORM);
+		SplashConfiguration.transformType = SplashConfiguration.ZOOM_TRANSFORM;
 	}
 
-	private void initView() {
+	private void initFragment() {
 		mVPActivity = (ViewPager) findViewById(R.id.vp_activity);
 		mFragment1 = new Fragment1();
 		mFragment2 = new Fragment2();
@@ -64,7 +60,15 @@ public class ViewPagerActivity extends FragmentActivity {
 		mPgAdapter = new ViewPagerAdapter(getSupportFragmentManager(),
 				mListFragment);
 		mVPActivity.setAdapter(mPgAdapter);
-		mVPActivity.setPageTransformer(true, splashConfiguration.getTransformType());
+		String type = SplashConfiguration.transformType;
+		if(type != null){
+			if(type.equals(SplashConfiguration.ROATTE_TRANSFORM)){
+				mVPActivity.setPageTransformer(true, new RotateDownPageTransformer());
+
+			}else if(type.equals(SplashConfiguration.ZOOM_TRANSFORM)){
+				mVPActivity.setPageTransformer(true, new ZoomOutPageTransformer());
+			}
+		}
 //		mVPActivity.setPageTransformer(true, new ZoomOutPageTransformer());
 //		mVPActivity.setPageTransformer(true, new RotateDownPageTransformer());
 //		mVPActivity.setPageTransformer(false, new ViewPager.PageTransformer() {
