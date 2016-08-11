@@ -1,10 +1,12 @@
 package com.buptant.customsplash.pagertransformer;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 
@@ -23,6 +25,7 @@ import butterknife.ButterKnife;
  * ViewPager 引导
  */
 public class ViewPagerActivity extends FragmentActivity {
+    private static final String TAG = ViewPagerActivity.class.getSimpleName();
 
     private static final int TAB_1 = 0;
     private static final int TAB_2 = 1;
@@ -46,6 +49,13 @@ public class ViewPagerActivity extends FragmentActivity {
     private PagerAdapter mPgAdapter;
 
     private int mCurrentTab = TAB_1;
+    public static int transformType;
+    public static int[] imgId;
+
+    public static int bg1;
+    public static int bg2;
+    public static int bg3;
+    public static int bg4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +63,24 @@ public class ViewPagerActivity extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_viewpager);
         ButterKnife.bind(this);
+        initImgId();
+        initTransformType();
         initView();
         initFragment();
-        initTransformType();
+    }
+
+    private void initImgId() {
+        if(imgId != null && imgId.length == 4){
+            bg1 = imgId[0];
+            bg2 = imgId[1];
+            bg3 = imgId[2];
+            bg4 = imgId[3];
+        }else{
+            bg1 = R.drawable.image1;
+            bg2 = R.drawable.image2;
+            bg3 = R.drawable.image3;
+            bg4 = R.drawable.image4;
+        }
     }
 
     private void initView() {
@@ -63,7 +88,7 @@ public class ViewPagerActivity extends FragmentActivity {
     }
 
     private void initTransformType() {
-        SplashConfiguration.transformType = SplashConfiguration.ZOOM_TRANSFORM;
+        transformType = SplashConfiguration.ROATTE_TRANSFORM;
     }
 
     private void initFragment() {
@@ -83,14 +108,12 @@ public class ViewPagerActivity extends FragmentActivity {
                 mListFragment);
         mVPActivity.addOnPageChangeListener(new PageChangeListener());
         mVPActivity.setAdapter(mPgAdapter);
-        String type = SplashConfiguration.transformType;
-        if (type != null) {
-            if (type.equals(SplashConfiguration.ROATTE_TRANSFORM)) {
-                mVPActivity.setPageTransformer(true, new RotateDownPageTransformer());
-
-            } else if (type.equals(SplashConfiguration.ZOOM_TRANSFORM)) {
-                mVPActivity.setPageTransformer(true, new ZoomOutPageTransformer());
-            }
+        if (transformType == SplashConfiguration.ROATTE_TRANSFORM) {
+            Log.d(TAG, "ROATTE_TRANSFORM");
+            mVPActivity.setPageTransformer(true, new RotateDownPageTransformer());
+        } else if (transformType == SplashConfiguration.ZOOM_TRANSFORM) {
+            Log.d(TAG, "ZOOM_TRANSFORM");
+            mVPActivity.setPageTransformer(true, new ZoomOutPageTransformer());
         }
 //		mVPActivity.setPageTransformer(true, new ZoomOutPageTransformer());
 //		mVPActivity.setPageTransformer(true, new RotateDownPageTransformer());
